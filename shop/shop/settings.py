@@ -82,27 +82,33 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ✅ Sessions
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 # SameSite=Lax works with same-origin proxy (Vite) and HTTP dev
-SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SECURE = False
+# SESSION_COOKIE_SAMESITE = 'Lax'
+# SESSION_COOKIE_SECURE = False
 
-# ✅ CSRF
-CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SECURE = False
+# # ✅ CSRF
+# CSRF_COOKIE_SAMESITE = 'Lax'
+# CSRF_COOKIE_SECURE = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5174",
+    "https://e-commerce-frontend-9rhn.onrender.com",
+]
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://e-commerce-frontend-9rhn.onrender.com",
 ]
 
-
 # # ✅ CORS
-# CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-#     "http://127.0.0.1:5173",
-# ]
+# # CORS_ALLOW_CREDENTIALS = True
+# # CORS_ALLOWED_ORIGINS = [
+# #     "http://localhost:5173",
+# #     "http://127.0.0.1:5173",
+# "https://e-commerce-frontend-9rhn.onrender.com",
+# # ]
 
 # ✅ CSRF trusted origins for dev Vite servers
 CSRF_TRUSTED_ORIGINS = [
@@ -110,6 +116,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5174",
+    "https://e-commerce-frontend-9rhn.onrender.com",
 ]
 
 # ✅ DRF Authentication
