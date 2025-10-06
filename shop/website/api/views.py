@@ -77,10 +77,9 @@ def logout_view(request):
 def session_view(request):
     return JsonResponse({
         "is_authenticated": request.user.is_authenticated,
-        "is_admin": request.user.is_authenticated and request.user.is_staff,
+        "is_admin": request.user.is_authenticated and request.user.is_superuser,
         "username": request.user.username if request.user.is_authenticated else None,
     })
-
 
 # ---------------- Products API ----------------
 @csrf_exempt
