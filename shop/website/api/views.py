@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 import json
 from django.contrib.auth.models import User
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
@@ -98,6 +98,7 @@ def logout_view(request):
 
 
 # ---------------- Session Check ----------------
+@ensure_csrf_cookie
 def session_view(request):
     return JsonResponse({
         "is_authenticated": request.user.is_authenticated,
