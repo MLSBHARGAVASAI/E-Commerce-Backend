@@ -38,6 +38,9 @@ def register(request):
 # ---------------- Login ----------------
 @csrf_exempt
 def login_view(request):
+    # Allow CORS preflight to succeed to prevent 405 on OPTIONS
+    if request.method == "OPTIONS":
+        return HttpResponse(status=200)
     if request.method != "POST":
         return HttpResponse(status=405)
     try:

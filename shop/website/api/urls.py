@@ -10,6 +10,7 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='cart'),
     path('products/<int:product_id>/', views.product_detail, name='product_detail'),
     path('session/', views.session_view, name='session'),
+    path('session', views.session_view),  # allow without trailing slash
     path('admin/stats/', views.admin_stats, name='admin_stats'),
     path('me/', views.me, name='me'),
     path('change-password/', views.change_password, name='change_password'),

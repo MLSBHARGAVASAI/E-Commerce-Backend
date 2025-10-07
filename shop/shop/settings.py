@@ -237,3 +237,11 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+
+# ----------------- Proxy/HTTPS settings (Render) -----------------
+# Respect X-Forwarded-Proto so Django knows the original scheme is HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# Use the X-Forwarded-Host header set by the proxy
+USE_X_FORWARDED_HOST = True
+# Enforce HTTPS redirects in production (Render terminates TLS)
+SECURE_SSL_REDIRECT = True
