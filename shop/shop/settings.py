@@ -133,9 +133,10 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ----------------- Security -----------------
 SECRET_KEY = 'django-insecure-$c#vr(hdywxyt%_p#d5zq9b2ok57q5qvo+&bzfcr0g$(_0ln18'
-DEBUG = True  # Change to False in production
-ALLOWED_HOSTS = ['*']  # or your domain
+DEBUG = False  # Must be False in production
+ALLOWED_HOSTS = ['e-commerce-backend-axvr.onrender.com']
 
 # ----------------- Installed apps -----------------
 INSTALLED_APPS = [
@@ -152,7 +153,7 @@ INSTALLED_APPS = [
 
 # ----------------- Middleware -----------------
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -184,7 +185,7 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # ----------------- Database -----------------
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # For Render, SQLite is ok but PG recommended
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -204,40 +205,33 @@ USE_I18N = True
 USE_TZ = True
 
 # ----------------- Static files -----------------
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Collect static here for production
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ----------------- Sessions & CSRF -----------------
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True  # requires HTTPS
 SESSION_COOKIE_SAMESITE = "None"
 
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True  # requires HTTPS
 CSRF_COOKIE_SAMESITE = "None"
 
 # ----------------- CORS -----------------
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
     "https://e-commerce-frontend-9rhn.onrender.com",
 ]
 
 # ----------------- CSRF trusted origins -----------------
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
     "https://e-commerce-frontend-9rhn.onrender.com",
 ]
 
 # ----------------- DRF Authentication -----------------
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "website.auth.CsrfExemptSessionAuthentication",  # custom class
+        "website.auth.CsrfExemptSessionAuthentication",  # custom CSRF-exempt class
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
