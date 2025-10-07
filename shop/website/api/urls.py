@@ -4,6 +4,7 @@ from website.api.views import CartView
 urlpatterns = [
     # path('', views.home, name='home'),
     path('register/', views.register, name='register'),
+    path('register', views.register),  # allow without trailing slash (avoids POST redirect)
     path('login/', views.login_view, name='login'),
     path('login', views.login_view),  # allow without trailing slash
     path('logout/', views.logout_view, name='logout'),
