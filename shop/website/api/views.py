@@ -41,6 +41,9 @@ def login_view(request):
     # Allow CORS preflight to succeed to prevent 405 on OPTIONS
     if request.method == "OPTIONS":
         return HttpResponse(status=200)
+    # Allow simple browser visits without 405 page
+    if request.method in ["GET", "HEAD"]:
+        return JsonResponse({"success": True, "message": "Login endpoint"})
     if request.method != "POST":
         return HttpResponse(status=405)
     try:

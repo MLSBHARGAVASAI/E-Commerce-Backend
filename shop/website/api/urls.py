@@ -5,6 +5,7 @@ urlpatterns = [
     # path('', views.home, name='home'),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
+    path('login', views.login_view),  # allow without trailing slash
     path('logout/', views.logout_view, name='logout'),
     path('products/', views.product_list, name='product_list'),
     path('cart/', CartView.as_view(), name='cart'),
