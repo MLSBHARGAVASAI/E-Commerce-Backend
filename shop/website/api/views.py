@@ -35,6 +35,7 @@ def register(request):
         return JsonResponse({
             "success": True,
             "message": "User registered successfully",
+            "username": user.username,
             "user": {
                 "id": user.id,
                 "username": user.username,
@@ -75,6 +76,7 @@ def login_view(request):
             return JsonResponse({
                 "success": True,
                 "message": "Login successful",
+                "username": user.username,
                 "user": {
                     "id": user.id,
                     "username": user.username,
