@@ -12,8 +12,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from website.models import Cart, Products, CartItem
 
-@csrf_exempt
 def register(request):
+    # Allow CORS preflight
+    if request.method == "OPTIONS":
+        return HttpResponse(status=200)
     if request.method != "POST":
         return HttpResponse(status=405)
     try:
@@ -30,20 +32,25 @@ def register(request):
             email=data["email"],
             password=data["password"]
         )
-        return JsonResponse({"success": True, "message": "User registered successfully"})
+        return JsonResponse({
+            "success": True,
+            "message": "User registered successfully",
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "is_admin": user.is_staff,
+            }
+        })
     except Exception as e:
         return JsonResponse({"success": False, "error": str(e)}, status=500)
 
 
 # ---------------- Login ----------------
-@csrf_exempt
 def login_view(request):
     # Allow CORS preflight to succeed to prevent 405 on OPTIONS
     if request.method == "OPTIONS":
         return HttpResponse(status=200)
-    # Allow simple browser visits without 405 page
-    if request.method in ["GET", "HEAD"]:
-        return JsonResponse({"success": True, "message": "Login endpoint"})
     if request.method != "POST":
         return HttpResponse(status=405)
     try:
@@ -65,7 +72,16 @@ def login_view(request):
         if user:
             auth_login(request, user)  # creates session
             request.session.save()     # ensures cookie is saved
-            return JsonResponse({"success": True, "message": "Login successful"})
+            return JsonResponse({
+                "success": True,
+                "message": "Login successful",
+                "user": {
+                    "id": user.id,
+                    "username": user.username,
+                    "email": user.email,
+                    "is_admin": user.is_staff,
+                }
+            })
         return JsonResponse({"success": False, "error": "Invalid credentials"}, status=400)
 
     except Exception as e:
