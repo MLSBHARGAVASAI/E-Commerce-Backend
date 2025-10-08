@@ -221,11 +221,13 @@ CSRF_COOKIE_SAMESITE = "None"
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "https://e-commerce-frontend-9rhn.onrender.com",
+    "http://localhost:5173",
 ]
 
 # ----------------- CSRF trusted origins -----------------
 CSRF_TRUSTED_ORIGINS = [
     "https://e-commerce-frontend-9rhn.onrender.com",
+    "http://localhost:5173",
 ]
 
 # ----------------- DRF Authentication -----------------
